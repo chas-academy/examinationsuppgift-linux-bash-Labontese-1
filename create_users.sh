@@ -22,7 +22,8 @@ for user in "$@"; do
 
 done
 
-    # Andra loopen skapar välkomst meddelandet och sorterar och sätter korrekt ägare av filen.
+    # Andra loopen körs separat för att alla användare ska finnas innan welcome.txt skapas, annars finns dom inte i systemet.
+    # Skapa välkomst meddelandet och sorterar och sätter korrekt ägare av filen.
 
 for user in "$@"; do
 
@@ -32,7 +33,7 @@ for user in "$@"; do
     # Hämtar listan på alla användare i passwd filen och sorterar sedan bort aktuell användare
     cut -d: -f1 /etc/passwd | grep -v "^$user$" >> /home/$user/welcome.txt
 
-    # Sätter användaren till ägare av välkomstfilen 
+    # Sätter användaren till ägare av välkomstfilen. 
     chown $user:$user /home/$user/welcome.txt
 
 done
